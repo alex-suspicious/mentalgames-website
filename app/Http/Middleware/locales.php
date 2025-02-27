@@ -29,7 +29,7 @@ class locales
             App::setLocale($locale);
         }
 
-        //App::setLocale("ru");
+        App::setLocale("ru");
 
 
         return $next($request);

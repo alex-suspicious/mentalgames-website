@@ -37,6 +37,7 @@ class UserFactory extends Factory
             'url' => null,
             'bio' => null,
             'profile_photo_path' => null,
+            'background_photo_path' => null,
             'current_team_id' => null,
         ];
     }

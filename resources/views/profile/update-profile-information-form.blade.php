@@ -8,12 +8,13 @@
     </x-slot>
 
     <x-slot name="form">
-        <!-- Profile Photo -->
+        <!-- Profile / Background Photo -->
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
             <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input type="file" id="photo" class="hidden"
                             wire:model.live="photo"
+                            wire:model="state.photo"
                             x-ref="photo"
                             x-on:change="
                                     photoName = $refs.photo.files[0].name;
@@ -49,6 +50,53 @@
                 @endif
 
                 <x-input-error for="photo" class="mt-2" />
+            </div>
+
+            <div x-data="{backgroundName: null, backgoundPreview: null}" class="col-span-6 sm:col-span-4">
+                <!-- Background Photo File Input -->
+                <input type="file" id="background" class="hidden"
+                            wire:model.live="background"
+                            wire:model="state.background"
+                            x-ref="background"
+                            x-on:change="
+                                    backgroundName = $refs.background.files[0].name;
+                                    const reader = new FileReader();
+                                    reader.onload = (e) => {
+                                        backgoundPreview = e.target.result;
+                                    };
+                                    reader.readAsDataURL($refs.background.files[0]);
+                            " />
+
+                <x-label for="backgound" value="{{ __('Background') }}" />
+
+                <!-- Current Background Background -->
+                <div class="mt-2" x-show="! backgoundPreview">
+                    <div class="h-40 bg-pink-500 overflow-hidden rounded-lg">
+                        <img class="w-full h-full object-cover" src="{{ $this->user->background_photo_url }}">
+                    </div>
+                </div>
+
+                <!-- New Background Background Preview -->
+                <div class="mt-2" x-show="backgoundPreview" style="display: none;">
+
+                    <div class="h-40 bg-pink-500 overflow-hidden rounded-lg">
+                        <img class="w-full h-full object-cover" x-bind:src="backgoundPreview">
+                    </div>
+
+
+                </div>
+
+                <x-secondary-button class="mt-2 me-2" type="button" x-on:click.prevent="$refs.background.click()">
+                    {{ __('Select A New Background') }}
+                </x-secondary-button>
+
+                @if ($this->user->background_photo_path)
+                    <x-secondary-button type="button" class="mt-2" wire:click="deleteBackgroundPhoto">
+                        {{ __('Remove Background') }}
+                    </x-secondary-button>
+                @endif
+
+                <x-input-error for="background" class="mt-2" />
             </div>
         @endif
 
@@ -102,7 +150,7 @@
             {{ __('Saved.') }}
         </x-action-message>
 
-        <x-button wire:loading.attr="disabled" wire:target="photo">
+        <x-button wire:loading.attr="disabled" wire:target="photo,background">
             {{ __('Save') }}
         </x-button>
     </x-slot>
