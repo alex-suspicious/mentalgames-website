@@ -59,6 +59,20 @@
             <x-input-error for="name" class="mt-2" />
         </div>
 
+        <!-- Url -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="url" value="{{ __('URL') }}" />
+            <x-input id="url" type="text" class="mt-1 block w-full" wire:model="state.url" required autocomplete="url" />
+            <x-input-error for="url" class="mt-2" />
+        </div>
+
+        <!-- bio -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="bio" value="{{ __('Bio') }}" />
+            <x-input id="bio" type="text" class="mt-1 block w-full" wire:model="state.bio" required autocomplete="bio" />
+            <x-input-error for="bio" class="mt-2" />
+        </div>
+
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="email" value="{{ __('Email') }}" />
