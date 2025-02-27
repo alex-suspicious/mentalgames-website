@@ -72,7 +72,9 @@
                 <!-- Current Background Background -->
                 <div class="mt-2" x-show="! backgoundPreview">
                     <div class="h-40 bg-pink-500 overflow-hidden rounded-lg">
-                        <img class="w-full h-full object-cover" src="{{ $this->user->background_photo_url }}">
+                        @if( $this->user->background_photo_path )
+                            <img class="w-full h-full object-cover" src="{{ $this->user->background_photo_url }}">
+                        @endif
                     </div>
                 </div>
 

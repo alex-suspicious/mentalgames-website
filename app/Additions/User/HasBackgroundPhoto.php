@@ -37,11 +37,7 @@ trait HasBackgroundPhoto
      */
     public function deleteBackgroundPhoto()
     {
-        if (! Features::managesBackgroundPhotos()) {
-            return;
-        }
-
-        if (is_null($this->background_photo_path)) {
+         if (is_null($this->background_photo_path)) {
             return;
         }
 
