@@ -13,20 +13,26 @@
                     <div class="-mt-24 px-4">
                         <div class="grid justify-items-stretch">
                             <img class="size-40 justify-self-start rounded-full object-cover border-8 border-white dark:border-gray-800" src="{{ $user->profile_photo_url }}">
-                            @if( $user == Auth::user() )
-                                <x-sick-link href="{{ route('profile.show') }}" class="justify-self-end -mt-12">
-                                    <span class="hidden lg:inline">{{ __('Edit profile') }}</span>
-                                    <span class="inline lg:hidden"><span class="material-symbols-outlined">edit</span></span>
-                                </x-sick-link>
-                            @else
-                                <div class="justify-self-end -mt-12">
-                                    <x-sick-link href="{{ route('profile.show') }}" class="mr-4">
-                                        <span class="hidden lg:inline">{{ __('Message') }}</span>
-                                        <span class="inline lg:hidden"><span class="material-symbols-outlined">chat</span></span>
-                                    </x-sick-link>
-
-                                    @livewire("SubscribeUser",['author' => $user->id])
+                            @if( Auth::check() )
+                                <div>
+                                    @livewire("UserOnlineStatus",['user' => $user])
                                 </div>
+
+                                @if( $user == Auth::user() )
+                                    <x-sick-link href="{{ route('profile.show') }}" class="justify-self-end -mt-12">
+                                        <span class="hidden lg:inline">{{ __('Edit profile') }}</span>
+                                        <span class="inline lg:hidden"><span class="material-symbols-outlined">edit</span></span>
+                                    </x-sick-link>
+                                @else
+                                    <div class="justify-self-end -mt-12">
+                                        <x-sick-link href="{{ route('profile.show') }}" class="mr-4">
+                                            <span class="hidden lg:inline">{{ __('Message') }}</span>
+                                            <span class="inline lg:hidden"><span class="material-symbols-outlined">chat</span></span>
+                                        </x-sick-link>
+
+                                        @livewire("SubscribeUser",['author' => $user->id])
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     </div>

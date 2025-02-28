@@ -56,6 +56,7 @@ class SubscribeUser extends Component
 
     public function refreshSubscribers() {
         $user = Auth::user();
+        $subscribtion = null;
         if( $user )
             $subscribtion = SubscriptionUser::where("subscriber",Auth::user()->id)->where("author",$this->author)->first();
 

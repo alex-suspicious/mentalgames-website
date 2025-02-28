@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -73,10 +74,27 @@ class User extends Authenticatable
     }
 
     function getSubscribersCountAttribute() {
-        return SubscriptionUser::where("author", $this->attributes["id"])->count();
+        return SubscriptionUser::where('author', $this->attributes['id'])->count();
     }
 
     function getSubscribedCountAttribute() {
-        return SubscriptionUser::where("subscriber", $this->attributes["id"])->count();
+        return SubscriptionUser::where('subscriber', $this->attributes['id'])->count();
+    }
+
+    // I use numbers instead of bools to then show if user is on mobile platform
+    function getOnlineAttribute() {
+        $session = DB::connection(config('session.connection'))->table(config('session.table', 'sessions'))
+            ->where('user_id', $this->attributes['id'])
+            ->orderBy('last_activity', 'desc')
+            ->first();
+
+        if( !$session )
+            return 0;
+
+        $difference = time() - $session->last_activity;
+        if( $difference < 25 )
+            return 1;
+
+        return 0;
     }
 }

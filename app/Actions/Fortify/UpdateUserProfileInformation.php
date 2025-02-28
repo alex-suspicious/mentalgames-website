@@ -23,7 +23,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'bio' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png,gif', 'max:1024'],
-            'background' => ['nullable', 'mimes:jpg,jpeg,png,gif', 'max:1024'],
+            'background' => ['nullable', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {

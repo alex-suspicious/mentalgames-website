@@ -109,7 +109,7 @@
                                     {{ __('Profile') }}
                                 </x-dropdown-link>
 
-                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures() && 0)
                                     <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                         {{ __('API Tokens') }}
                                     </x-dropdown-link>
@@ -183,26 +183,33 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <!-- Account Management -->
-                <x-responsive-nav-link href="/profile/{{ Auth()->user()->url }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                @if (Laravel\Jetstream\Jetstream::hasApiFeatures() && 0)
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
                         {{ __('API Tokens') }}
                     </x-responsive-nav-link>
                 @endif
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
-
-                    <x-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
+                @if( Auth::check() )
+                    <!-- Account Management -->
+                    <x-responsive-nav-link href="/profile/{{ Auth()->user()->url }}" :active="request()->routeIs('profile.show')">
+                        {{ __('Profile') }}
                     </x-responsive-nav-link>
-                </form>
+
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+
+                        <x-responsive-nav-link href="{{ route('logout') }}"
+                                       @click.prevent="$root.submit();">
+                            {{ __('Log Out') }}
+                        </x-responsive-nav-link>
+                    </form>
+                @else
+                    <x-responsive-nav-link href="{{ route('login') }}" >
+                        {{ __('Login') }}
+                    </x-responsive-nav-link>
+                @endif
+
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
