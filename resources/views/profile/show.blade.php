@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile editing') }}
+            <x-back-button></x-back-button> {{ __('Profile editing') }}
         </h2>
     </x-slot>
 

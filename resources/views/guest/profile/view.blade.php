@@ -14,14 +14,16 @@
                         <div class="grid justify-items-stretch">
                             <img class="size-40 justify-self-start rounded-full object-cover border-8 border-white dark:border-gray-800" src="{{ $user->profile_photo_url }}">
                             @if( $user == Auth::user() )
-                                <x-sick-button href="{{ route('profile.show') }}" class="justify-self-end -mt-12">
-                                    {{ __('Edit profile') }}
-                                </x-sick-button>
+                                <x-sick-link href="{{ route('profile.show') }}" class="justify-self-end -mt-12">
+                                    <span class="hidden lg:inline">{{ __('Edit profile') }}</span>
+                                    <span class="inline lg:hidden"><span class="material-symbols-outlined">edit</span></span>
+                                </x-sick-link>
                             @else
                                 <div class="justify-self-end -mt-12">
-                                    <x-sick-button href="{{ route('profile.show') }}" class="mr-4">
-                                        {{ __('Message') }}
-                                    </x-sick-button>
+                                    <x-sick-link href="{{ route('profile.show') }}" class="mr-4">
+                                        <span class="hidden lg:inline">{{ __('Message') }}</span>
+                                        <span class="inline lg:hidden"><span class="material-symbols-outlined">chat</span></span>
+                                    </x-sick-link>
 
                                     @livewire("SubscribeUser",['author' => $user->id])
                                 </div>
@@ -33,7 +35,9 @@
                         <div class="pl-4 text-m opacity-35 -mt-1">{{ '@' . $user->url }}</div>
                         <div class="pl-4 mt-3">{{ $user->bio }}</div>
                         <div class="pl-4 text-m mt-3 opacity-35"><span class="material-symbols-outlined text-sm">calendar_month</span> {{__("Joined")}} {{ __($user->created_at->format('F')) }} {{ $user->created_at->format('Y') }}</div>
-                        <div class="pl-4 mt-1"><b class="text-m">{{ $user->subscribed }}</b> <span class="opacity-35 text-sm">Subscribed</span> <b class="text-m ml-2">{{ $user->subscribers }}</b> <span class="opacity-35 text-sm">Subscribers</span></div>
+                        <div class="pl-4 mt-1">
+                            @livewire("SubscriptionsInfo", ['user' => $user])
+                        </div>
                     </div>
 
                     <x-tabs-navigation :tabs="['posts', 'replies', 'addons', 'games']" defaultTab="posts" class="pl-4"/>

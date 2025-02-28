@@ -72,11 +72,11 @@ class User extends Authenticatable
         ];
     }
 
-    function getSubscribersAttribute() {
+    function getSubscribersCountAttribute() {
         return SubscriptionUser::where("author", $this->attributes["id"])->count();
     }
 
-    function getSubscribedAttribute() {
+    function getSubscribedCountAttribute() {
         return SubscriptionUser::where("subscriber", $this->attributes["id"])->count();
     }
 }

@@ -48,6 +48,7 @@
     "Delete Account": "Удалить аккаунт",
     "Message": "Сообщение",
     "Subscribe": "Подписаться",
+    "Unsubscribe": "Отписаться",
     "Select A New Background": "Выбрать новый фон",
     "Remove Background": "Удалить фон",
     "Background": "Фон",
@@ -68,5 +69,7 @@
     "posts": "посты",
     "replies": "ответы",
     "addons": "аддоны",
-    "games": "игры"
+    "games": "игры",
+    "Subscribed": "Подписан",
+    "Subscribers": "Подписчики"
 }

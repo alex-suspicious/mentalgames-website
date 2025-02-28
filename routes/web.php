@@ -35,6 +35,8 @@ Route::get('/news', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers'], function(){
     Route::get('/profile/{url}', "ProfileController@view");
+    Route::get('/profile/{url}/subscribers', "ProfileController@subscribers");
+    Route::get('/profile/{url}/subscribed', "ProfileController@subscribed");
 });
 
 Route::middleware([

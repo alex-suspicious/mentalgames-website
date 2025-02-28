@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubscriptionUser extends Model
+class UserPost extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -16,5 +15,4 @@ class SubscriptionUser extends Model
         'subscriber',
         'author'
     ];
-
 }
