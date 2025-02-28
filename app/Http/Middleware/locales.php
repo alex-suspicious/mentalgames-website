@@ -28,9 +28,7 @@ class locales
             session()->put('locale',$locale);
             App::setLocale($locale);
         }
-
-        App::setLocale("ru");
-
+        //App::setLocale("uk");
 
         return $next($request);
     }

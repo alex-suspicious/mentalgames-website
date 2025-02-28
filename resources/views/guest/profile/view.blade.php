@@ -23,9 +23,7 @@
                                         {{ __('Message') }}
                                     </x-sick-button>
 
-                                    <x-sick-white-button href="{{ route('profile.show') }}">
-                                        {{ __('Subscribe') }}
-                                    </x-sick-white-button>
+                                    @livewire("SubscribeUser",['author' => $user->id])
                                 </div>
                             @endif
                         </div>
@@ -34,7 +32,8 @@
                         <div class="text-3xl font-bold pl-4">{{ $user->name }}</div>
                         <div class="pl-4 text-m opacity-35 -mt-1">{{ '@' . $user->url }}</div>
                         <div class="pl-4 mt-3">{{ $user->bio }}</div>
-                        <div class="pl-4 text-m mt-4 opacity-35"><span class="material-symbols-outlined text-sm">calendar_month</span> {{__("Joined")}} {{ __($user->created_at->format('F')) }} {{ $user->created_at->format('Y') }}</div>
+                        <div class="pl-4 text-m mt-3 opacity-35"><span class="material-symbols-outlined text-sm">calendar_month</span> {{__("Joined")}} {{ __($user->created_at->format('F')) }} {{ $user->created_at->format('Y') }}</div>
+                        <div class="pl-4 mt-1"><b class="text-m">{{ $user->subscribed }}</b> <span class="opacity-35 text-sm">Subscribed</span> <b class="text-m ml-2">{{ $user->subscribers }}</b> <span class="opacity-35 text-sm">Subscribers</span></div>
                     </div>
 
                     <x-tabs-navigation :tabs="['posts', 'replies', 'addons', 'games']" defaultTab="posts" class="pl-4"/>

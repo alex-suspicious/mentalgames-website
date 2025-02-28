@@ -11,6 +11,8 @@ use Laravel\Jetstream\HasProfilePhoto;
 use App\Additions\User\HasBackgroundPhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\SubscriptionUser;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -68,5 +70,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    function getSubscribersAttribute() {
+        return SubscriptionUser::where("author", $this->attributes["id"])->count();
+    }
+
+    function getSubscribedAttribute() {
+        return SubscriptionUser::where("subscriber", $this->attributes["id"])->count();
     }
 }
